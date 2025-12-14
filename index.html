@@ -128,6 +128,27 @@
       font-size: 12px;
       color: #64748b;
     }
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      color: #cbd5e1;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+      color: #e2e8f0;
+      font-size: 14px;
+    }
+
+    .list li {
+      margin-bottom: 6px;
+    }
   </style>
 </head>
 
@@ -142,7 +163,7 @@
   <div class="card result" id="resultCard" style="display:none;"></div>
 
   <footer>
-    © 집술 메이트 · 안주 추천 서비스
+    © 집술 메이트 · 안주 추천 서비스 · <a href="https://funnyfunny.cloud" target="_blank" style="color:#94a3b8;text-decoration:none;">funnyfunny.cloud</a>
   </footer>
 </main>
 
@@ -174,223 +195,298 @@ const steps = [
 
 /* 안주 레시피 */
 const recipes = [
-  // 🍶 소주
-  {
-    name: "두부김치",
-    drink: ["soju","beer"],
-    hunger: "mid",
-    alcoholFit: "소주랑 찰떡",
-    time: 15,
-    difficulty: "하",
-    description: "기름기와 산미 조합으로 소주가 술술 들어가는 국룰 안주"
-  },
-  {
-    name: "삼겹살",
-    drink: ["soju"],
-    hunger: "big",
-    alcoholFit: "소주 국룰",
-    time: 30,
-    difficulty: "중",
-    description: "기름진 고기에 소주 한 잔이면 말 끝"
-  },
-  {
-    name: "제육볶음",
-    drink: ["soju"],
-    hunger: "big",
-    alcoholFit: "매콤함이 소주를 부른다",
-    time: 25,
-    difficulty: "중",
-    description: "스트레스 풀리는 매콤한 집술 안주"
-  },
-  {
-    name: "파전",
-    drink: ["soju","beer"],
-    hunger: "mid",
-    alcoholFit: "전엔 역시 소주",
-    time: 20,
-    difficulty: "중",
-    description: "바삭한 전 한 입에 술 한 잔"
-  },
-  {
-    name: "골뱅이무침",
-    drink: ["soju","beer"],
-    hunger: "mid",
-    alcoholFit: "새콤매콤 완벽",
-    time: 15,
-    difficulty: "하",
-    description: "입맛 돋우는 클래식 안주"
-  },
+/* =========================
+   🍺 맥주
+========================= */
+{
+  name: "치킨",
+  drink: ["beer"],
+  alcoholFit: "맥주 없으면 섭섭",
+  time: 30,
+  difficulty: "중",
+  description: "말이 필요 없는 맥주 안주의 최종 보스",
+  ingredients: ["닭", "튀김가루", "식용유", "소금"],
+  steps: [
+    "닭에 소금으로 밑간한다",
+    "튀김가루를 입힌다",
+    "기름에 노릇하게 튀긴다"
+  ]
+},
+{
+  name: "감자튀김",
+  drink: ["beer"],
+  alcoholFit: "맥주가 술술",
+  time: 10,
+  difficulty: "하",
+  description: "짭짤함 하나로 맥주 속도 올리는 안주",
+  ingredients: ["감자", "식용유", "소금"],
+  steps: [
+    "감자를 길게 썬다",
+    "기름에 바삭하게 튀긴다",
+    "소금을 뿌린다"
+  ]
+},
+{
+  name: "소시지 구이",
+  drink: ["beer"],
+  alcoholFit: "독일 감성",
+  time: 10,
+  difficulty: "하",
+  description: "육즙 가득한 클래식 맥주 안주",
+  ingredients: ["소시지", "머스터드"],
+  steps: [
+    "팬에 소시지를 굽는다",
+    "노릇해지면 접시에 담는다"
+  ]
+},
+{
+  name: "피자",
+  drink: ["beer"],
+  alcoholFit: "탄산으로 느끼함 컷",
+  time: 25,
+  difficulty: "중",
+  description: "여럿이 마실 때 실패 없는 선택",
+  ingredients: ["피자 도우", "토마토소스", "치즈", "토핑"],
+  steps: [
+    "도우에 소스를 바른다",
+    "치즈와 토핑을 올린다",
+    "오븐에 굽는다"
+  ]
+},
+{
+  name: "치즈볼",
+  drink: ["beer"],
+  alcoholFit: "단짠 조합",
+  time: 8,
+  difficulty: "하",
+  description: "한 입씩 집어먹기 좋은 안주",
+  ingredients: ["치즈볼", "식용유"],
+  steps: [
+    "기름을 달군다",
+    "치즈볼을 튀긴다"
+  ]
+},
+{
+  name: "오징어튀김",
+  drink: ["beer"],
+  alcoholFit: "바삭함 극대화",
+  time: 20,
+  difficulty: "중",
+  description: "튀김과 맥주의 공식",
+  ingredients: ["오징어", "튀김가루", "식용유"],
+  steps: [
+    "오징어를 손질한다",
+    "튀김옷을 입힌다",
+    "기름에 튀긴다"
+  ]
+},
+{
+  name: "나초 & 살사",
+  drink: ["beer"],
+  alcoholFit: "가볍게 시작",
+  time: 5,
+  difficulty: "하",
+  description: "입 심심할 때 딱 좋은 맥주 안주",
+  ingredients: ["나초", "살사소스"],
+  steps: [
+    "나초를 접시에 담는다",
+    "살사소스를 곁들인다"
+  ]
+},
+{
+  name: "핫윙",
+  drink: ["beer"],
+  alcoholFit: "매콤함 + 탄산",
+  time: 20,
+  difficulty: "중",
+  description: "매운맛으로 맥주 리셋",
+  ingredients: ["닭날개", "핫소스", "식용유"],
+  steps: [
+    "날개를 튀긴다",
+    "핫소스를 버무린다"
+  ]
+},
+{
+  name: "마른 오징어",
+  drink: ["beer"],
+  alcoholFit: "씹을수록 맥주",
+  time: 2,
+  difficulty: "하",
+  description: "말 안 하고 마시기 좋은 안주",
+  ingredients: ["마른 오징어"],
+  steps: [
+    "살짝 구워 준비한다"
+  ]
+},
+{
+  name: "프레첼",
+  drink: ["beer"],
+  alcoholFit: "독일 국룰",
+  time: 5,
+  difficulty: "하",
+  description: "짠맛으로 맥주 풍미 강조",
+  ingredients: ["프레첼"],
+  steps: [
+    "그대로 접시에 담는다"
+  ]
+},
 
-  // 🍺 맥주
-  {
-    name: "치킨",
-    drink: ["beer"],
-    hunger: "big",
-    alcoholFit: "맥주 없으면 섭섭",
-    time: 30,
-    difficulty: "중",
-    description: "말이 필요 없는 맥주 안주의 최종 보스"
-  },
-  {
-    name: "감자튀김",
-    drink: ["beer"],
-    hunger: "light",
-    alcoholFit: "맥주가 술술",
-    time: 10,
-    difficulty: "하",
-    description: "짭짤함으로 맥주 속도 올리는 안주"
-  },
-  {
-    name: "소시지 구이",
-    drink: ["beer"],
-    hunger: "mid",
-    alcoholFit: "독일 감성",
-    time: 10,
-    difficulty: "하",
-    description: "육즙 가득, 맥주랑 안정적인 조합"
-  },
-  {
-    name: "오징어튀김",
-    drink: ["beer"],
-    hunger: "mid",
-    alcoholFit: "바삭함 극대화",
-    time: 20,
-    difficulty: "중",
-    description: "튀김과 맥주의 공식"
-  },
-  {
-    name: "피자",
-    drink: ["beer"],
-    hunger: "big",
-    alcoholFit: "탄산이 느끼함 컷",
-    time: 25,
-    difficulty: "중",
-    description: "여럿이 마실 때 실패 없는 선택"
-  },
+/* =========================
+   🍶 소주
+========================= */
+{
+  name: "두부김치",
+  drink: ["soju","beer"],
+  alcoholFit: "소주랑 찰떡",
+  time: 15,
+  difficulty: "하",
+  description: "기름기와 산미 조합의 국룰 안주",
+  ingredients: ["두부", "김치", "고기", "고춧가루"],
+  steps: [
+    "두부를 데친다",
+    "김치를 볶는다",
+    "두부 위에 김치를 올린다"
+  ]
+},
+{
+  name: "삼겹살",
+  drink: ["soju"],
+  alcoholFit: "소주 국룰",
+  time: 30,
+  difficulty: "중",
+  description: "기름진 고기에 소주 한 잔",
+  ingredients: ["삼겹살", "마늘", "쌈채소"],
+  steps: [
+    "삼겹살을 굽는다",
+    "마늘을 곁들인다"
+  ]
+},
+{
+  name: "제육볶음",
+  drink: ["soju"],
+  alcoholFit: "매콤함이 소주를 부른다",
+  time: 25,
+  difficulty: "중",
+  description: "스트레스 풀리는 매콤한 집술 안주",
+  ingredients: ["돼지고기", "고추장", "양파"],
+  steps: [
+    "고기를 양념한다",
+    "팬에 볶는다"
+  ]
+},
+{
+  name: "파전",
+  drink: ["soju","beer"],
+  alcoholFit: "전엔 역시 소주",
+  time: 20,
+  difficulty: "중",
+  description: "바삭한 전 한 입에 술 한 잔",
+  ingredients: ["부침가루", "파", "물"],
+  steps: [
+    "반죽을 만든다",
+    "파를 넣어 굽는다"
+  ]
+},
+{
+  name: "골뱅이무침",
+  drink: ["soju","beer"],
+  alcoholFit: "새콤매콤",
+  time: 15,
+  difficulty: "하",
+  description: "입맛 돋우는 클래식 안주",
+  ingredients: ["골뱅이", "채소", "초고추장"],
+  steps: [
+    "재료를 썬다",
+    "양념에 버무린다"
+  ]
+},
 
-  // 🍷 와인 - 공통
-  {
-    name: "치즈 & 견과",
-    drink: ["wine"],
-    wineType: ["red","white"],
-    hunger: "light",
-    alcoholFit: "와인 맛을 살려주는 조합",
-    time: 5,
-    difficulty: "하",
-    description: "술 맛을 해치지 않는 가벼운 안주"
-  },
-  {
-    name: "올리브 & 햄",
-    drink: ["wine"],
-    wineType: ["red","white"],
-    hunger: "light",
-    alcoholFit: "유럽식 정석",
-    time: 5,
-    difficulty: "하",
-    description: "짠맛으로 와인 풍미 강조"
-  },
+/* =========================
+   🍷 와인
+========================= */
+{
+  name: "치즈 & 견과",
+  drink: ["wine"],
+  wineType: ["red","white"],
+  alcoholFit: "와인 맛을 살려주는 조합",
+  time: 5,
+  difficulty: "하",
+  description: "술 맛을 해치지 않는 가벼운 안주",
+  ingredients: ["치즈", "견과류"],
+  steps: [
+    "치즈를 자른다",
+    "견과와 함께 담는다"
+  ]
+},
+{
+  name: "스테이크",
+  drink: ["wine"],
+  wineType: ["red"],
+  alcoholFit: "레드와인과 환상 궁합",
+  time: 25,
+  difficulty: "중",
+  description: "육즙과 탄닌의 정석",
+  ingredients: ["소고기", "소금", "후추", "버터"],
+  steps: [
+    "고기에 간한다",
+    "센 불에 굽는다",
+    "버터로 마무리"
+  ]
+},
+{
+  name: "감바스",
+  drink: ["wine"],
+  wineType: ["white"],
+  alcoholFit: "마늘 향 극대화",
+  time: 15,
+  difficulty: "중",
+  description: "화이트와인 대표 안주",
+  ingredients: ["새우", "마늘", "올리브오일"],
+  steps: [
+    "마늘을 볶는다",
+    "새우를 익힌다"
+  ]
+},
 
-  // 🍷 레드와인
-  {
-    name: "스테이크",
-    drink: ["wine"],
-    wineType: ["red"],
-    hunger: "big",
-    alcoholFit: "레드와인과 환상 궁합",
-    time: 25,
-    difficulty: "중",
-    description: "육즙과 탄닌의 정석 조합"
-  },
-  {
-    name: "버섯구이",
-    drink: ["wine"],
-    wineType: ["red"],
-    hunger: "mid",
-    alcoholFit: "풍미 상승",
-    time: 15,
-    difficulty: "하",
-    description: "고기 대체용으로 좋은 안주"
-  },
-  {
-    name: "라구 파스타",
-    drink: ["wine"],
-    wineType: ["red"],
-    hunger: "big",
-    alcoholFit: "묵직한 소스와 조화",
-    time: 30,
-    difficulty: "중",
-    description: "와인 한 병 각 잡히는 안주"
-  },
-
-  // 🥂 화이트와인
-  {
-    name: "연어 카르파치오",
-    drink: ["wine"],
-    wineType: ["white"],
-    hunger: "mid",
-    alcoholFit: "산미랑 찰떡",
-    time: 10,
-    difficulty: "하",
-    description: "상큼한 산미로 입이 깔끔"
-  },
-  {
-    name: "새우 샐러드",
-    drink: ["wine"],
-    wineType: ["white"],
-    hunger: "light",
-    alcoholFit: "가볍고 산뜻",
-    time: 10,
-    difficulty: "하",
-    description: "여름 밤에 잘 어울리는 안주"
-  },
-  {
-    name: "감바스",
-    drink: ["wine"],
-    wineType: ["white"],
-    hunger: "mid",
-    alcoholFit: "마늘 향 극대화",
-    time: 15,
-    difficulty: "중",
-    description: "화이트와인 대표 안주"
-  },
-
-  // 🥃 위스키
-  {
-    name: "다크초콜릿",
-    drink: ["whiskey","wine"],
-    hunger: "light",
-    alcoholFit: "위스키 단맛 강조",
-    time: 3,
-    difficulty: "하",
-    description: "쓴맛과 단맛의 밸런스"
-  },
-  {
-    name: "훈제오리",
-    drink: ["whiskey","beer"],
-    hunger: "mid",
-    alcoholFit: "훈연향과 궁합",
-    time: 10,
-    difficulty: "하",
-    description: "위스키 향을 해치지 않는 안주"
-  },
-  {
-    name: "견과류 믹스",
-    drink: ["whiskey"],
-    hunger: "light",
-    alcoholFit: "클래식",
-    time: 2,
-    difficulty: "하",
-    description: "위스키 초보도 실패 없음"
-  },
-  {
-    name: "치즈 플래터",
-    drink: ["whiskey","wine"],
-    hunger: "mid",
-    alcoholFit: "향 유지",
-    time: 5,
-    difficulty: "하",
-    description: "긴 밤에 잘 어울리는 조합"
-  }
+/* =========================
+   🥃 위스키
+========================= */
+{
+  name: "다크초콜릿",
+  drink: ["whiskey","wine"],
+  alcoholFit: "위스키 단맛 강조",
+  time: 3,
+  difficulty: "하",
+  description: "쓴맛과 단맛의 밸런스",
+  ingredients: ["다크초콜릿"],
+  steps: [
+    "한 조각씩 준비한다"
+  ]
+},
+{
+  name: "견과류 믹스",
+  drink: ["whiskey"],
+  alcoholFit: "클래식",
+  time: 2,
+  difficulty: "하",
+  description: "위스키 초보도 실패 없음",
+  ingredients: ["견과류"],
+  steps: [
+    "그대로 담아낸다"
+  ]
+},
+{
+  name: "훈제 치즈",
+  drink: ["whiskey"],
+  alcoholFit: "스모키 매칭",
+  time: 5,
+  difficulty: "하",
+  description: "위스키 향과 잘 맞음",
+  ingredients: ["훈제 치즈"],
+  steps: [
+    "썰어서 접시에 담는다"
+  ]
+}
 ];
 
 let stepIndex = 0;
@@ -462,6 +558,24 @@ function reroll() {
 }
 
 function renderResultContent(r) {
+  const ingredientView = r.ingredients ? `
+    <div class="section">
+      <h3>재료</h3>
+      <ul class="list">
+        ${r.ingredients.map(item => `<li>${item}</li>`).join("")}
+      </ul>
+    </div>
+  ` : "";
+
+  const stepsView = r.steps ? `
+    <div class="section">
+      <h3>만드는 법</h3>
+      <ol class="list">
+        ${r.steps.map(step => `<li>${step}</li>`).join("")}
+      </ol>
+    </div>
+  ` : "";
+
   resultCard.innerHTML = `
     <h2>오늘의 안주 🍺</h2>
     <p style="font-size:22px;font-weight:800;margin:6px 0">${r.name}</p>
@@ -473,9 +587,13 @@ function renderResultContent(r) {
       <span class="badge">🍶 ${r.alcoholFit}</span>
     </div>
 
+    ${ingredientView}
+    ${stepsView}
+
     <div class="actions">
       <button class="btn" onclick="reroll()">이 안주 별로면 다시 추천</button>
-      <button class="btn" onclick="saveImage()">이미지 저장 (Threads용)</button>
+      <button class="btn" onclick="saveImage()">이미지 저장</button>
+      <button class="btn" onclick="window.open('https://funnyfunny.cloud','_blank')">다른 테스트 해보기</button>
     </div>
   `;
 }
@@ -531,10 +649,37 @@ function saveImage() {
     x += w + 14;
   });
 
+  // Ingredients
+  let infoY = y + 60;
+  if (currentRecipe.ingredients) {
+    ctx.fillStyle = "#94a3b8";
+    ctx.font = "22px 'Segoe UI', system-ui, sans-serif";
+    ctx.fillText("재료", 60, infoY);
+    infoY += 28;
+    ctx.fillStyle = "#e2e8f0";
+    ctx.font = "20px 'Segoe UI', system-ui, sans-serif";
+    wrapText(ctx, currentRecipe.ingredients.join(", "), 60, infoY, 1080, 28);
+    infoY += 40;
+  }
+
+  // Steps
+  if (currentRecipe.steps) {
+    ctx.fillStyle = "#94a3b8";
+    ctx.font = "22px 'Segoe UI', system-ui, sans-serif";
+    ctx.fillText("만드는 법", 60, infoY);
+    infoY += 28;
+    ctx.fillStyle = "#e2e8f0";
+    ctx.font = "20px 'Segoe UI', system-ui, sans-serif";
+    currentRecipe.steps.forEach((step, idx) => {
+      wrapText(ctx, `${idx + 1}. ${step}`, 60, infoY, 1080, 28);
+      infoY += 30;
+    });
+  }
+
   // Footer
   ctx.fillStyle = "#475569";
   ctx.font = "18px 'Segoe UI', system-ui, sans-serif";
-  ctx.fillText("🍻 지금 이 술에 · 안주 추천", 60, 360);
+  ctx.fillText("🍻 지금 이 술에 · 안주 추천 · funnyfunny.cloud", 60, canvas.height - 40);
 
   const link = document.createElement("a");
   link.download = `anju-${Date.now()}.png`;
