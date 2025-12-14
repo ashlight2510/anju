@@ -6,10 +6,11 @@
   <title>지금 이 술에 🍻</title>
 
   <!-- SEO / OG -->
-  <meta name="description" content="지금 이 술에, 이 상황에 딱 맞는 안주 하나" />
+  <meta name="description" content="지금 이 술에 딱 맞는 안주 하나, 고민 없이 바로 추천" />
   <meta property="og:title" content="지금 이 술에 🍻" />
-  <meta property="og:description" content="고민 없이 바로 결정하는 안주 추천 서비스" />
-  <meta property="og:image" content="https://dummyimage.com/1200x630/020617/ffffff&text=%EC%A7%80%EA%B8%88+%EC%9D%B4+%EC%88%A0%EC%97%90" />
+  <meta property="og:description" content="술 종류와 배고픔만 고르면 끝나는 안주 추천 서비스" />
+  <meta property="og:image" content="https://dummyimage.com/1200x630/020617/ffffff&text=ANJU" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Ctext y='50%25' x='50%25' dy='.35em' font-size='52' text-anchor='middle'%3E%F0%9F%8D%BB%3C/text%3E%3C/svg%3E" />
 
   <style>
     body {
@@ -94,13 +95,31 @@
       border-radius: 999px;
       font-size: 12px;
       margin-right: 6px;
+      margin-top: 6px;
     }
 
-    ul {
-      padding-left: 18px;
-      margin: 8px 0 0;
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      flex: 1;
+      min-width: 160px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: #1e293b;
+      color: #fff;
+      cursor: pointer;
       font-size: 14px;
-      color: #e5e7eb;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      background: #2b384e;
     }
 
     footer {
@@ -115,12 +134,11 @@
 <body>
 <header>
   <h1>🍻 지금 이 술에</h1>
-  <p>지금 이 술에, 이 상황에 딱 맞는 안주 하나</p>
+  <p>지금 이 술에, 딱 맞는 안주 하나</p>
 </header>
 
 <main>
   <div class="card" id="stepCard"></div>
-
   <div class="card result" id="resultCard" style="display:none;"></div>
 
   <footer>
@@ -134,69 +152,244 @@ const steps = [
   {
     key: "drink",
     q: "어떤 술이야?",
-    sub: "술에 따라 어울리는 안주가 달라요.",
+    sub: "술에 따라 안주가 완전히 달라져요.",
     a: [
       { t: "🍺 맥주", v: "beer" },
       { t: "🍶 소주", v: "soju" },
-      { t: "🍷 와인", v: "wine" }
+      { t: "🍷 와인", v: "wine" },
+      { t: "🥃 위스키", v: "whiskey" }
     ]
   },
   {
-    key: "hunger",
-    q: "얼마나 배고파?",
-    sub: "술이 메인인지, 안주가 메인인지 골라주세요.",
+    key: "wineType",
+    q: "와인 종류는?",
+    sub: "레드와 화이트는 어울리는 안주가 달라요.",
+    condition: (a) => a.drink === "wine",
     a: [
-      { t: "안주가 메인", v: "big" },
-      { t: "적당히", v: "mid" },
-      { t: "입만 심심", v: "light" }
-    ]
-  },
-  {
-    key: "situation",
-    q: "지금 상황은?",
-    sub: "혼술인지, 같이 마시는지 알려주세요.",
-    a: [
-      { t: "혼술", v: "solo" },
-      { t: "같이 마심", v: "together" },
-      { t: "배달도 가능", v: "delivery" }
+      { t: "🍷 레드와인", v: "red" },
+      { t: "🥂 화이트와인", v: "white" }
     ]
   }
 ];
 
 /* 안주 레시피 */
 const recipes = [
+  // 🍶 소주
   {
     name: "두부김치",
     drink: ["soju","beer"],
     hunger: "mid",
-    situation: ["solo","together"],
+    alcoholFit: "소주랑 찰떡",
     time: 15,
     difficulty: "하",
-    tags: ["안주","집술","단백질"],
-    alcoholFit: "소주랑 찰떡",
-    description: "기름기와 산미 조합으로 소주가 술술 들어가는 안주"
+    description: "기름기와 산미 조합으로 소주가 술술 들어가는 국룰 안주"
   },
+  {
+    name: "삼겹살",
+    drink: ["soju"],
+    hunger: "big",
+    alcoholFit: "소주 국룰",
+    time: 30,
+    difficulty: "중",
+    description: "기름진 고기에 소주 한 잔이면 말 끝"
+  },
+  {
+    name: "제육볶음",
+    drink: ["soju"],
+    hunger: "big",
+    alcoholFit: "매콤함이 소주를 부른다",
+    time: 25,
+    difficulty: "중",
+    description: "스트레스 풀리는 매콤한 집술 안주"
+  },
+  {
+    name: "파전",
+    drink: ["soju","beer"],
+    hunger: "mid",
+    alcoholFit: "전엔 역시 소주",
+    time: 20,
+    difficulty: "중",
+    description: "바삭한 전 한 입에 술 한 잔"
+  },
+  {
+    name: "골뱅이무침",
+    drink: ["soju","beer"],
+    hunger: "mid",
+    alcoholFit: "새콤매콤 완벽",
+    time: 15,
+    difficulty: "하",
+    description: "입맛 돋우는 클래식 안주"
+  },
+
+  // 🍺 맥주
   {
     name: "치킨",
     drink: ["beer"],
     hunger: "big",
-    situation: ["together","delivery"],
+    alcoholFit: "맥주 없으면 섭섭",
     time: 30,
     difficulty: "중",
-    tags: ["배달","국룰"],
-    alcoholFit: "맥주 없으면 섭섭",
-    description: "고민 끝내는 맥주 안주의 정답"
+    description: "말이 필요 없는 맥주 안주의 최종 보스"
   },
   {
-    name: "치즈 & 견과",
-    drink: ["wine","beer"],
+    name: "감자튀김",
+    drink: ["beer"],
     hunger: "light",
-    situation: ["solo"],
+    alcoholFit: "맥주가 술술",
+    time: 10,
+    difficulty: "하",
+    description: "짭짤함으로 맥주 속도 올리는 안주"
+  },
+  {
+    name: "소시지 구이",
+    drink: ["beer"],
+    hunger: "mid",
+    alcoholFit: "독일 감성",
+    time: 10,
+    difficulty: "하",
+    description: "육즙 가득, 맥주랑 안정적인 조합"
+  },
+  {
+    name: "오징어튀김",
+    drink: ["beer"],
+    hunger: "mid",
+    alcoholFit: "바삭함 극대화",
+    time: 20,
+    difficulty: "중",
+    description: "튀김과 맥주의 공식"
+  },
+  {
+    name: "피자",
+    drink: ["beer"],
+    hunger: "big",
+    alcoholFit: "탄산이 느끼함 컷",
+    time: 25,
+    difficulty: "중",
+    description: "여럿이 마실 때 실패 없는 선택"
+  },
+
+  // 🍷 와인 - 공통
+  {
+    name: "치즈 & 견과",
+    drink: ["wine"],
+    wineType: ["red","white"],
+    hunger: "light",
+    alcoholFit: "와인 맛을 살려주는 조합",
     time: 5,
     difficulty: "하",
-    tags: ["초간단","혼술"],
-    alcoholFit: "와인이 더 맛있어짐",
-    description: "술 맛 해치지 않는 가벼운 안주"
+    description: "술 맛을 해치지 않는 가벼운 안주"
+  },
+  {
+    name: "올리브 & 햄",
+    drink: ["wine"],
+    wineType: ["red","white"],
+    hunger: "light",
+    alcoholFit: "유럽식 정석",
+    time: 5,
+    difficulty: "하",
+    description: "짠맛으로 와인 풍미 강조"
+  },
+
+  // 🍷 레드와인
+  {
+    name: "스테이크",
+    drink: ["wine"],
+    wineType: ["red"],
+    hunger: "big",
+    alcoholFit: "레드와인과 환상 궁합",
+    time: 25,
+    difficulty: "중",
+    description: "육즙과 탄닌의 정석 조합"
+  },
+  {
+    name: "버섯구이",
+    drink: ["wine"],
+    wineType: ["red"],
+    hunger: "mid",
+    alcoholFit: "풍미 상승",
+    time: 15,
+    difficulty: "하",
+    description: "고기 대체용으로 좋은 안주"
+  },
+  {
+    name: "라구 파스타",
+    drink: ["wine"],
+    wineType: ["red"],
+    hunger: "big",
+    alcoholFit: "묵직한 소스와 조화",
+    time: 30,
+    difficulty: "중",
+    description: "와인 한 병 각 잡히는 안주"
+  },
+
+  // 🥂 화이트와인
+  {
+    name: "연어 카르파치오",
+    drink: ["wine"],
+    wineType: ["white"],
+    hunger: "mid",
+    alcoholFit: "산미랑 찰떡",
+    time: 10,
+    difficulty: "하",
+    description: "상큼한 산미로 입이 깔끔"
+  },
+  {
+    name: "새우 샐러드",
+    drink: ["wine"],
+    wineType: ["white"],
+    hunger: "light",
+    alcoholFit: "가볍고 산뜻",
+    time: 10,
+    difficulty: "하",
+    description: "여름 밤에 잘 어울리는 안주"
+  },
+  {
+    name: "감바스",
+    drink: ["wine"],
+    wineType: ["white"],
+    hunger: "mid",
+    alcoholFit: "마늘 향 극대화",
+    time: 15,
+    difficulty: "중",
+    description: "화이트와인 대표 안주"
+  },
+
+  // 🥃 위스키
+  {
+    name: "다크초콜릿",
+    drink: ["whiskey","wine"],
+    hunger: "light",
+    alcoholFit: "위스키 단맛 강조",
+    time: 3,
+    difficulty: "하",
+    description: "쓴맛과 단맛의 밸런스"
+  },
+  {
+    name: "훈제오리",
+    drink: ["whiskey","beer"],
+    hunger: "mid",
+    alcoholFit: "훈연향과 궁합",
+    time: 10,
+    difficulty: "하",
+    description: "위스키 향을 해치지 않는 안주"
+  },
+  {
+    name: "견과류 믹스",
+    drink: ["whiskey"],
+    hunger: "light",
+    alcoholFit: "클래식",
+    time: 2,
+    difficulty: "하",
+    description: "위스키 초보도 실패 없음"
+  },
+  {
+    name: "치즈 플래터",
+    drink: ["whiskey","wine"],
+    hunger: "mid",
+    alcoholFit: "향 유지",
+    time: 5,
+    difficulty: "하",
+    description: "긴 밤에 잘 어울리는 조합"
   }
 ];
 
@@ -204,13 +397,27 @@ let stepIndex = 0;
 const answers = {};
 const stepCard = document.getElementById("stepCard");
 const resultCard = document.getElementById("resultCard");
+let currentRecipe = null;
 
 function random(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function currentStep() {
+  while (
+    stepIndex < steps.length &&
+    steps[stepIndex].condition &&
+    !steps[stepIndex].condition(answers)
+  ) {
+    stepIndex++;
+  }
+  return steps[stepIndex];
+}
+
 function renderStep() {
-  const s = steps[stepIndex];
+  const s = currentStep();
+  if (!s) return showResult();
+
   stepCard.innerHTML = `
     <div class="step-title">${s.q}</div>
     <div class="step-sub">${s.sub}</div>
@@ -225,47 +432,131 @@ function renderStep() {
 function nextStep(key, value) {
   answers[key] = value;
   stepIndex++;
-  if (stepIndex < steps.length) renderStep();
-  else showResult();
+  renderStep();
 }
 
-function pickAnju({ drink, hunger, situation }) {
-  const strict = recipes.filter(r =>
-    r.drink.includes(drink) &&
-    r.hunger === hunger &&
-    r.situation.includes(situation)
+function pickAnju(a) {
+  let list = recipes.filter(r =>
+    r.drink.includes(a.drink) &&
+    (!r.wineType || r.wineType.includes(a.wineType))
   );
-  if (strict.length) return random(strict);
 
-  const loose = recipes.filter(r =>
-    r.drink.includes(drink) && r.hunger === hunger
-  );
-  if (loose.length) return random(loose);
+  if (!list.length) {
+    list = recipes.filter(r => r.drink.includes(a.drink));
+  }
 
-  return random(recipes);
+  return random(list);
 }
 
 function showResult() {
   stepCard.style.display = "none";
   resultCard.style.display = "block";
 
-  const r = pickAnju(answers);
+  currentRecipe = pickAnju(answers);
+  renderResultContent(currentRecipe);
+}
 
+function reroll() {
+  currentRecipe = pickAnju(answers);
+  renderResultContent(currentRecipe);
+}
+
+function renderResultContent(r) {
   resultCard.innerHTML = `
     <h2>오늘의 안주 🍺</h2>
     <p style="font-size:22px;font-weight:800;margin:6px 0">${r.name}</p>
     <p style="color:#94a3b8;font-size:14px">${r.description}</p>
 
-    <div style="margin-top:10px">
+    <div>
       <span class="badge">⏱ 술 안 식기 전에 ${r.time}분</span>
       <span class="badge">🔥 난이도 ${r.difficulty}</span>
       <span class="badge">🍶 ${r.alcoholFit}</span>
     </div>
 
-    <p style="margin-top:14px;font-size:13px;color:#94a3b8">
-      #${r.tags.join(" #")}
-    </p>
+    <div class="actions">
+      <button class="btn" onclick="reroll()">이 안주 별로면 다시 추천</button>
+      <button class="btn" onclick="saveImage()">이미지 저장 (Threads용)</button>
+    </div>
   `;
+}
+
+function saveImage() {
+  if (!currentRecipe) return;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = 1200;
+  canvas.height = 630;
+  const ctx = canvas.getContext("2d");
+
+  // Background
+  ctx.fillStyle = "#020617";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Title
+  ctx.fillStyle = "#94a3b8";
+  ctx.font = "28px 'Segoe UI', system-ui, sans-serif";
+  ctx.fillText("지금 이 술에", 60, 80);
+
+  // Recipe name
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "48px 'Segoe UI', system-ui, sans-serif";
+  ctx.fillText(currentRecipe.name, 60, 150);
+
+  // Description
+  ctx.fillStyle = "#cbd5e1";
+  ctx.font = "22px 'Segoe UI', system-ui, sans-serif";
+  const desc = currentRecipe.description;
+  wrapText(ctx, desc, 60, 200, 1080, 30);
+
+  // Badges
+  const badges = [
+    `⏱ ${currentRecipe.time}분`,
+    `🔥 난이도 ${currentRecipe.difficulty}`,
+    `🍶 ${currentRecipe.alcoholFit}`
+  ];
+  let x = 60;
+  const y = 280;
+  badges.forEach(text => {
+    const paddingX = 18;
+    const paddingY = 10;
+    ctx.font = "20px 'Segoe UI', system-ui, sans-serif";
+    const w = ctx.measureText(text).width + paddingX * 2;
+    const h = 38;
+    ctx.fillStyle = "#1e293b";
+    ctx.beginPath();
+    ctx.roundRect(x, y - h + paddingY, w, h, 16);
+    ctx.fill();
+    ctx.fillStyle = "#ffffff";
+    ctx.fillText(text, x + paddingX, y);
+    x += w + 14;
+  });
+
+  // Footer
+  ctx.fillStyle = "#475569";
+  ctx.font = "18px 'Segoe UI', system-ui, sans-serif";
+  ctx.fillText("🍻 지금 이 술에 · 안주 추천", 60, 360);
+
+  const link = document.createElement("a");
+  link.download = `anju-${Date.now()}.png`;
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(" ");
+  let line = "";
+  for (let n = 0; n < words.length; n++) {
+    const testLine = line + words[n] + " ";
+    const metrics = ctx.measureText(testLine);
+    if (metrics.width > maxWidth && n > 0) {
+      ctx.fillText(line.trim(), x, y);
+      line = words[n] + " ";
+      y += lineHeight;
+    } else {
+      line = testLine;
+    }
+  }
+  ctx.fillText(line.trim(), x, y);
 }
 
 renderStep();
