@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>지금 이 술에 🍻</title>
+
+  <!-- SEO / OG -->
+  <meta name="description" content="지금 이 술에, 이 상황에 딱 맞는 안주 하나" />
+  <meta property="og:title" content="지금 이 술에 🍻" />
+  <meta property="og:description" content="고민 없이 바로 결정하는 안주 추천 서비스" />
+  <meta property="og:image" content="https://dummyimage.com/1200x630/020617/ffffff&text=%EC%A7%80%EA%B8%88+%EC%9D%B4+%EC%88%A0%EC%97%90" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f172a;
+      color: #fff;
+    }
+
+    header {
+      padding: 28px 16px;
+      text-align: center;
+      background: #020617;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+    }
+
+    header p {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    .card {
+      background: #020617;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .step-title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .step-sub {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .choice {
+      background: #0f172a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 16px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .choice:hover {
+      background: #1e293b;
+      transform: translateY(-2px);
+    }
+
+    .result {
+      margin-top: 20px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #1e293b;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      margin-right: 6px;
+    }
+
+    ul {
+      padding-left: 18px;
+      margin: 8px 0 0;
+      font-size: 14px;
+      color: #e5e7eb;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 12px;
+      color: #64748b;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>🍻 지금 이 술에</h1>
+  <p>지금 이 술에, 이 상황에 딱 맞는 안주 하나</p>
+</header>
+
+<main>
+  <div class="card" id="stepCard"></div>
+
+  <div class="card result" id="resultCard" style="display:none;"></div>
+
+  <footer>
+    © 집술 메이트 · 안주 추천 서비스
+  </footer>
+</main>
+
+<script>
+/* STEP 정의 */
+const steps = [
+  {
+    key: "drink",
+    q: "어떤 술이야?",
+    sub: "술에 따라 어울리는 안주가 달라요.",
+    a: [
+      { t: "🍺 맥주", v: "beer" },
+      { t: "🍶 소주", v: "soju" },
+      { t: "🍷 와인", v: "wine" }
+    ]
+  },
+  {
+    key: "hunger",
+    q: "얼마나 배고파?",
+    sub: "술이 메인인지, 안주가 메인인지 골라주세요.",
+    a: [
+      { t: "안주가 메인", v: "big" },
+      { t: "적당히", v: "mid" },
+      { t: "입만 심심", v: "light" }
+    ]
+  },
+  {
+    key: "situation",
+    q: "지금 상황은?",
+    sub: "혼술인지, 같이 마시는지 알려주세요.",
+    a: [
+      { t: "혼술", v: "solo" },
+      { t: "같이 마심", v: "together" },
+      { t: "배달도 가능", v: "delivery" }
+    ]
+  }
+];
+
+/* 안주 레시피 */
+const recipes = [
+  {
+    name: "두부김치",
+    drink: ["soju","beer"],
+    hunger: "mid",
+    situation: ["solo","together"],
+    time: 15,
+    difficulty: "하",
+    tags: ["안주","집술","단백질"],
+    alcoholFit: "소주랑 찰떡",
+    description: "기름기와 산미 조합으로 소주가 술술 들어가는 안주"
+  },
+  {
+    name: "치킨",
+    drink: ["beer"],
+    hunger: "big",
+    situation: ["together","delivery"],
+    time: 30,
+    difficulty: "중",
+    tags: ["배달","국룰"],
+    alcoholFit: "맥주 없으면 섭섭",
+    description: "고민 끝내는 맥주 안주의 정답"
+  },
+  {
+    name: "치즈 & 견과",
+    drink: ["wine","beer"],
+    hunger: "light",
+    situation: ["solo"],
+    time: 5,
+    difficulty: "하",
+    tags: ["초간단","혼술"],
+    alcoholFit: "와인이 더 맛있어짐",
+    description: "술 맛 해치지 않는 가벼운 안주"
+  }
+];
+
+let stepIndex = 0;
+const answers = {};
+const stepCard = document.getElementById("stepCard");
+const resultCard = document.getElementById("resultCard");
+
+function random(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function renderStep() {
+  const s = steps[stepIndex];
+  stepCard.innerHTML = `
+    <div class="step-title">${s.q}</div>
+    <div class="step-sub">${s.sub}</div>
+    <div class="choices">
+      ${s.a.map(o =>
+        `<div class="choice" onclick="nextStep('${s.key}','${o.v}')">${o.t}</div>`
+      ).join("")}
+    </div>
+  `;
+}
+
+function nextStep(key, value) {
+  answers[key] = value;
+  stepIndex++;
+  if (stepIndex < steps.length) renderStep();
+  else showResult();
+}
+
+function pickAnju({ drink, hunger, situation }) {
+  const strict = recipes.filter(r =>
+    r.drink.includes(drink) &&
+    r.hunger === hunger &&
+    r.situation.includes(situation)
+  );
+  if (strict.length) return random(strict);
+
+  const loose = recipes.filter(r =>
+    r.drink.includes(drink) && r.hunger === hunger
+  );
+  if (loose.length) return random(loose);
+
+  return random(recipes);
+}
+
+function showResult() {
+  stepCard.style.display = "none";
+  resultCard.style.display = "block";
+
+  const r = pickAnju(answers);
+
+  resultCard.innerHTML = `
+    <h2>오늘의 안주 🍺</h2>
+    <p style="font-size:22px;font-weight:800;margin:6px 0">${r.name}</p>
+    <p style="color:#94a3b8;font-size:14px">${r.description}</p>
+
+    <div style="margin-top:10px">
+      <span class="badge">⏱ 술 안 식기 전에 ${r.time}분</span>
+      <span class="badge">🔥 난이도 ${r.difficulty}</span>
+      <span class="badge">🍶 ${r.alcoholFit}</span>
+    </div>
+
+    <p style="margin-top:14px;font-size:13px;color:#94a3b8">
+      #${r.tags.join(" #")}
+    </p>
+  `;
+}
+
+renderStep();
+</script>
+</body>
+</html>
